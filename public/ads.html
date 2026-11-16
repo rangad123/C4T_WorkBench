@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Deals — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads" aria-current="page">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Today's deals</h1>
+<p>This page shows sponsored slots. A hidden ad-network frame loads in the background; there is nothing to solve here.</p>
+<div class="ad-slot" data-testid="ad-slot-1"><p><strong>Sponsored:</strong> Imaginary Headphones — 20% off (not real).</p></div>
+<div class="ad-slot" data-testid="ad-slot-2"><p><strong>Sponsored:</strong> Pretend Plant Pot — buy one, get none free.</p></div>
+<iframe class="hidden-frame" src="/fake/recaptcha/api2/aframe.html" width="0" height="0" title="Ad network frame" aria-hidden="true" tabindex="-1" data-testid="ad-frame"></iframe>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>

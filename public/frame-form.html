@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Feedback form</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/frame-form.js"></script>
+</head>
+<body>
+<header><div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div></header>
+<main id="main">
+<h1>Feedback</h1>
+<form id="frame-form" class="form" novalidate data-testid="frame-form">
+  <div class="field"><label for="ff-name">Your name</label><input id="ff-name" name="name" type="text" required maxlength="60" data-testid="frame-name"></div>
+  <div class="field"><label for="ff-comment">Comment</label><textarea id="ff-comment" name="comment" rows="3" maxlength="500" data-testid="frame-comment"></textarea></div>
+  <button type="submit" class="btn btn-primary" data-testid="frame-submit">Send</button>
+</form>
+<p id="frame-result" role="status" data-testid="frame-result"></p>
+</main>
+</body>
+</html>

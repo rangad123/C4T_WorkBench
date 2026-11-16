@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Sign in — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+<script type="module" src="/assets/login.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" aria-current="page" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Sign in</h1>
+<form id="login-form" class="form" novalidate data-testid="login-form">
+  <p id="login-error" class="notice notice-error" role="alert" hidden data-testid="login-error"></p>
+  <div class="field"><label for="login-email">Email</label>
+  <input id="login-email" name="email" type="email" autocomplete="username" data-testid="login-email"></div>
+  <div class="field"><label for="login-password">Password</label>
+  <input id="login-password" name="password" type="password" autocomplete="current-password" data-testid="login-password"></div>
+  <div class="field check"><input id="login-remember" name="remember" type="checkbox" data-testid="login-remember">
+  <label for="login-remember">Remember me</label></div>
+  <div class="actions"><button type="submit" class="btn btn-primary" data-testid="login-submit">Sign in</button></div>
+</form>
+<p>New here? <a href="/signup" data-testid="signup-link">Create an account</a>.</p>
+<p class="muted">Seeded accounts are listed on <a href="/docs/accounts">the accounts page</a>.</p>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>

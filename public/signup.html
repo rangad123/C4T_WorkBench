@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Create an account — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+<script type="module" src="/assets/signup.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Create an account</h1>
+<form id="signup-form" class="form" novalidate data-testid="signup-form">
+  <p id="signup-error" class="notice notice-error" role="alert" hidden data-testid="signup-error"></p>
+  
+  <div class="field"><label for="su-name">Full name</label>
+  <input id="su-name" name="name" type="text" required minlength="2" maxlength="60" autocomplete="name" aria-describedby="su-name-hint su-name-error" data-testid="signup-name">
+  <p id="su-name-hint" class="hint">2 to 60 characters.</p>
+  <p id="su-name-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="su-email">Email</label>
+  <input id="su-email" name="email" type="email" required autocomplete="email" aria-describedby="su-email-error" data-testid="signup-email">
+  
+  <p id="su-email-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="su-password">Password</label>
+  <input id="su-password" name="password" type="password" required minlength="8" pattern="(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" autocomplete="new-password" aria-describedby="su-password-hint su-password-error" data-testid="signup-password">
+  <p id="su-password-hint" class="hint">At least 8 characters with a letter, a number and a symbol.</p>
+  <p id="su-password-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="su-confirm">Confirm password</label>
+  <input id="su-confirm" name="confirm" type="password" required autocomplete="new-password" aria-describedby="su-confirm-error" data-testid="signup-confirm">
+  
+  <p id="su-confirm-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="su-age">Age</label>
+  <input id="su-age" name="age" type="number" required min="18" max="120" step="1" inputmode="numeric" aria-describedby="su-age-hint su-age-error" data-testid="signup-age">
+  <p id="su-age-hint" class="hint">A whole number from 18 to 120.</p>
+  <p id="su-age-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="su-country">Country</label>
+  <select id="su-country" name="country" required aria-describedby="su-country-error" data-testid="signup-country">
+    <option value="">Choose…</option><option value="IN">India</option><option value="GB">United Kingdom</option><option value="US">United States</option>
+    <option value="DE">Germany</option><option value="FR">France</option><option value="JP">Japan</option><option value="AU">Australia</option></select>
+  
+  <p id="su-country-error" class="field-error" hidden></p></div>
+  <div class="field"><span class="check"><input id="su-terms" name="terms" type="checkbox" required aria-describedby="su-terms-error" data-testid="signup-terms">
+  <label for="su-terms">I accept the terms</label></span>
+  <p id="su-terms-error" class="field-error" hidden></p></div>
+  <div class="actions"><button type="submit" class="btn btn-primary" data-testid="signup-submit">Create account</button></div>
+</form>
+<p>Already have an account? <a href="/login">Sign in</a>.</p>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>

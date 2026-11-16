@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Products — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+<script type="module" src="/assets/products.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" aria-current="page" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Products</h1>
+<form id="filters" class="row" data-testid="product-filters" aria-label="Filter products">
+  <div class="field"><label for="f-q">Search</label><input id="f-q" name="q" type="search" maxlength="100" data-testid="filter-q"></div>
+  <div class="field"><label for="f-category">Category</label><select id="f-category" name="category" data-testid="filter-category"><option value="">All categories</option></select></div>
+  <div class="field"><label for="f-min">Min price</label><input id="f-min" name="minPrice" type="number" min="0" step="0.01" data-testid="filter-min-price"></div>
+  <div class="field"><label for="f-max">Max price</label><input id="f-max" name="maxPrice" type="number" min="0" step="0.01" data-testid="filter-max-price"></div>
+  <div class="field check"><input id="f-stock" name="inStock" type="checkbox" value="1" data-testid="filter-in-stock"> <label for="f-stock">In stock only</label></div>
+  <div class="field"><button type="submit" class="btn btn-primary" data-testid="filter-apply">Apply filters</button></div>
+</form>
+<fieldset class="row"><legend>View</legend>
+  <span class="check"><input type="radio" id="view-cards" name="view" value="cards" checked data-testid="view-cards"> <label for="view-cards">Cards</label></span>
+  <span class="check"><input type="radio" id="view-table" name="view" value="table" data-testid="view-table"> <label for="view-table">Table</label></span>
+</fieldset>
+<h2 class="sr-only">Results</h2>
+<p id="products-status" role="status" data-testid="products-status"></p>
+<ul id="products-grid" class="grid" data-testid="product-grid"></ul>
+<div id="products-table-wrap" class="table-wrap" tabindex="0" role="region" aria-label="Products table" hidden>
+<table data-testid="product-table"><caption>Products</caption>
+<thead><tr><th scope="col">Name</th><th scope="col">Category</th><th scope="col" class="num">Price</th><th scope="col" class="num">Stock</th></tr></thead>
+<tbody id="products-rows"></tbody></table></div>
+<nav aria-label="Pages" class="actions" id="pager" data-testid="pager"></nav>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>

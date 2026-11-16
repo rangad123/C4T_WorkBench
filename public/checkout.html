@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Checkout — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+<script type="module" src="/assets/checkout.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Checkout</h1>
+<form id="checkout-form" class="form" novalidate data-testid="checkout-form">
+  <p id="checkout-error" class="notice notice-error" role="alert" hidden data-testid="checkout-error"></p>
+  <fieldset><legend>Shipping address</legend>
+  
+  <div class="field"><label for="ship-name">Name</label>
+  <input id="ship-name" name="name" type="text" required maxlength="60" autocomplete="name" aria-describedby="ship-name-error" data-testid="ship-name">
+  
+  <p id="ship-name-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="ship-street">Street</label>
+  <input id="ship-street" name="street" type="text" required maxlength="100" autocomplete="street-address" aria-describedby="ship-street-error" data-testid="ship-street">
+  
+  <p id="ship-street-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="ship-city">City</label>
+  <input id="ship-city" name="city" type="text" required maxlength="60" autocomplete="address-level2" aria-describedby="ship-city-error" data-testid="ship-city">
+  
+  <p id="ship-city-error" class="field-error" hidden></p></div>
+  
+  <div class="field"><label for="ship-postcode">Postcode</label>
+  <input id="ship-postcode" name="postcode" type="text" required maxlength="12" autocomplete="postal-code" aria-describedby="ship-postcode-error" data-testid="ship-postcode">
+  
+  <p id="ship-postcode-error" class="field-error" hidden></p></div>
+  </fieldset>
+  <fieldset><legend>Shipping</legend>
+    <div class="check"><input type="radio" id="ship-standard" name="shipping" value="standard" checked data-testid="ship-standard"> <label for="ship-standard">Standard (free, 5 days)</label></div>
+    <div class="check"><input type="radio" id="ship-express" name="shipping" value="express" data-testid="ship-express"> <label for="ship-express">Express ($9.99, 1 day)</label></div>
+  </fieldset>
+  <div class="actions"><button type="submit" class="btn btn-primary" data-testid="checkout-continue">Continue to review</button></div>
+</form>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>

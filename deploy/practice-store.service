@@ -1,0 +1,31 @@
+# systemd unit for the Practice Store. Copy to /etc/systemd/system/practice-store.service (see deploy/README.md).
+# Nothing here starts by itself until you run `systemctl enable --now practice-store`.
+[Unit]
+Description=Practice Store (test site for Crowd4Test AI Studio)
+After=network.target
+
+[Service]
+Type=simple
+User=practice
+Group=practice
+WorkingDirectory=/opt/practice-store
+ExecStart=/usr/bin/node /opt/practice-store/server/index.mjs
+Environment=PORT=8080
+Environment=HOST=127.0.0.1
+# Secrets and switches live in this file (mode 600): RESET_TOKEN=..., SESSION_SECRET=..., TRUST_PROXY=1, optionally BUGS=...
+EnvironmentFile=/etc/practice-store.env
+Restart=on-failure
+RestartSec=2
+
+# Hardening: the server only reads its own folder and listens on localhost behind nginx.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadOnlyPaths=/opt/practice-store
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,67 @@
+# nginx site for the Practice Store. Replace {{DOMAIN}} (see deploy/README.md), then copy to
+# /etc/nginx/sites-available/practice-store and link it into sites-enabled.
+# Certificates: run certbot first with the HTTP-only block below, then uncomment the 443 block
+# (or let `certbot --nginx -d {{DOMAIN}}` edit it for you).
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{DOMAIN}};
+
+    # certbot's HTTP challenge
+    location /.well-known/acme-challenge/ { root /var/www/certbot; }
+
+    # Before the certificate exists, comment this line and use the proxy block from the 443 server instead.
+    location / { return 301 https://$host$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name {{DOMAIN}};
+
+    # Placeholders: certbot writes these files.
+    ssl_certificate     /etc/letsencrypt/live/{{DOMAIN}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{DOMAIN}}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # The app limits bodies to 1 MB itself; allow a little above so it, not nginx, answers 413 with its own message.
+    client_max_body_size 2m;
+
+    # Server-sent events: no buffering, long reads.
+    location /api/live/events {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 1h;
+    }
+
+    # WebSocket upgrade.
+    location /api/live/ws {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 1h;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # /slow takes about 3 s on purpose.
+        proxy_read_timeout 30s;
+    }
+}

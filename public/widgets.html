@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="__CSRF__">
+<title>Widgets — Practice Store</title>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/common.js"></script>
+<script type="module" src="/assets/widgets.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="practice-banner" role="note" data-testid="practice-banner">Practice site for automated testing — not a real shop.</div>
+  <div class="inner">
+    <a class="brand" href="/" data-testid="brand">Practice Store</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="/" data-testid="nav-home">Home</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="shop-button" aria-expanded="false" aria-controls="shop-menu" data-testid="nav-shop">Shop ▾</button>
+          <ul class="dropdown-menu" id="shop-menu" hidden>
+            <li><a href="/products" data-testid="nav-products">All products</a></li>
+          </ul>
+        </li>
+        <li><a href="/cart" data-testid="nav-cart">Cart</a></li>
+        <li><a href="/orders" data-testid="nav-orders">Orders</a></li>
+        <li class="dropdown">
+          <button type="button" class="linklike" id="practice-button" aria-expanded="false" aria-controls="practice-menu" data-testid="nav-practice">Practice pages ▾</button>
+          <ul class="dropdown-menu" id="practice-menu" hidden>
+            <li><a href="/widgets" aria-current="page">Widgets</a></li>
+            <li><a href="/live">Live</a></li>
+            <li><a href="/spa/#/dashboard">Notes (SPA)</a></li>
+            <li><a href="/mailbox">Mailbox</a></li>
+            <li><a href="/login-plain">Plain login</a></li>
+            <li><a href="/captcha">Captcha</a></li>
+            <li><a href="/ads">Ads</a></li>
+            <li><a href="/a11y">Accessibility issues</a></li>
+            <li><a href="/slow">Slow page</a></li>
+            <li><a href="/broken">Broken page</a></li>
+            <li><a href="/docs/requirements">Requirements</a></li>
+          </ul>
+        </li>
+        <li id="nav-admin" hidden><a href="/admin" data-testid="nav-admin">Admin</a></li>
+        <li id="nav-signin"><a href="/login" data-testid="nav-signin">Sign in</a></li>
+        <li id="nav-account" hidden><a href="/account" data-testid="nav-account">Account</a></li>
+        <li id="nav-signout" hidden><button type="button" class="linklike" data-testid="nav-signout">Sign out</button></li>
+      </ul>
+    </nav>
+    <form class="site-search" role="search" action="/products" method="get">
+      <label for="site-search-q" class="sr-only">Search products</label>
+      <input id="site-search-q" name="q" type="search" maxlength="100" placeholder="Search products" data-testid="search-input">
+      <button type="submit" class="btn" data-testid="search-button">Search</button>
+    </form>
+  </div>
+</header>
+<main id="main">
+<h1>Widgets</h1>
+<p>Common interface pieces to practise against.</p>
+
+<section class="widget" aria-labelledby="w-dialog-h">
+  <h2 id="w-dialog-h">Dialogs</h2>
+  <div class="actions">
+    <button type="button" class="btn" id="open-native-dialog" data-testid="open-native-dialog">Open native dialog</button>
+    <button type="button" class="btn" id="open-aria-dialog" data-testid="open-aria-dialog">Open custom dialog</button>
+  </div>
+  <p id="dialog-result" role="status" data-testid="dialog-result"></p>
+  <dialog id="native-dialog" aria-labelledby="native-dialog-h" data-testid="native-dialog">
+    <h2 id="native-dialog-h">Subscribe</h2>
+    <form method="dialog" id="native-dialog-form">
+      <div class="field"><label for="nd-email">Email</label><input id="nd-email" type="email" name="email" data-testid="native-dialog-email"></div>
+      <div class="actions"><button value="ok" class="btn btn-primary" data-testid="native-dialog-ok">Subscribe</button>
+      <button value="cancel" class="btn" data-testid="native-dialog-cancel">Cancel</button></div>
+    </form>
+  </dialog>
+  <div id="aria-dialog-backdrop" class="modal-backdrop" hidden>
+    <div id="aria-dialog" class="modal" role="dialog" aria-modal="true" aria-labelledby="aria-dialog-h" data-testid="aria-dialog">
+      <h2 id="aria-dialog-h">Confirm action</h2>
+      <p>Do you want to continue?</p>
+      <div class="actions"><button type="button" class="btn btn-primary" id="aria-dialog-yes" data-testid="aria-dialog-yes">Yes, continue</button>
+      <button type="button" class="btn" id="aria-dialog-no" data-testid="aria-dialog-no">No</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="widget" aria-labelledby="w-menu-h">
+  <h2 id="w-menu-h">Menu</h2>
+  <div class="dropdown-wrap">
+    <button type="button" class="btn" id="menu-button" aria-haspopup="menu" aria-expanded="false" aria-controls="actions-menu" data-testid="menu-button">Actions ▾</button>
+    <ul id="actions-menu" role="menu" aria-labelledby="menu-button" hidden data-testid="actions-menu">
+      <li role="menuitem" tabindex="-1">Edit</li>
+      <li role="menuitem" tabindex="-1">Duplicate</li>
+      <li role="menuitem" tabindex="-1">Archive</li>
+      <li role="menuitem" tabindex="-1">Delete</li>
+    </ul>
+  </div>
+  <p id="menu-result" role="status" data-testid="menu-result"></p>
+</section>
+
+<section class="widget tabs" aria-labelledby="w-tabs-h">
+  <h2 id="w-tabs-h">Tabs</h2>
+  <div role="tablist" aria-label="Product information">
+    <button type="button" role="tab" id="tab-desc" aria-selected="true" aria-controls="panel-desc" data-testid="tab-description">Description</button>
+    <button type="button" role="tab" id="tab-specs" aria-selected="false" aria-controls="panel-specs" tabindex="-1" data-testid="tab-specs">Specifications</button>
+    <button type="button" role="tab" id="tab-reviews" aria-selected="false" aria-controls="panel-reviews" tabindex="-1" data-testid="tab-reviews">Reviews</button>
+  </div>
+  <div role="tabpanel" id="panel-desc" aria-labelledby="tab-desc" tabindex="0"><p>A sturdy practice widget, made of nothing at all.</p></div>
+  <div role="tabpanel" id="panel-specs" aria-labelledby="tab-specs" tabindex="0" hidden><p>Weight: 0 g. Colour: imaginary.</p></div>
+  <div role="tabpanel" id="panel-reviews" aria-labelledby="tab-reviews" tabindex="0" hidden><p>"Exactly as described." — a fake reviewer</p></div>
+</section>
+
+<section class="widget accordion" aria-labelledby="w-acc-h">
+  <h2 id="w-acc-h">Accordion (frequently asked questions)</h2>
+  <h3><button type="button" aria-expanded="false" aria-controls="acc-1" id="acc-1-btn" data-testid="accordion-shipping">How long does shipping take?</button></h3>
+  <div id="acc-1" class="panel" role="region" aria-labelledby="acc-1-btn" hidden><p>Standard takes 5 days, Express 1 day. Nothing actually ships.</p></div>
+  <h3><button type="button" aria-expanded="false" aria-controls="acc-2" id="acc-2-btn" data-testid="accordion-returns">Can I return an item?</button></h3>
+  <div id="acc-2" class="panel" role="region" aria-labelledby="acc-2-btn" hidden><p>Cancel an order while it is pending or paid.</p></div>
+  <h3><button type="button" aria-expanded="false" aria-controls="acc-3" id="acc-3-btn" data-testid="accordion-codes">Is there a discount code?</button></h3>
+  <div id="acc-3" class="panel" role="region" aria-labelledby="acc-3-btn" hidden><p>Try SAVE10 in the cart.</p></div>
+</section>
+
+<section class="widget" aria-labelledby="w-table-h">
+  <h2 id="w-table-h">Sortable table</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Team table">
+  <table id="sort-table" data-testid="sort-table"><caption>Team (click a header to sort)</caption>
+    <thead><tr>
+      <th scope="col" aria-sort="none"><button type="button" class="linklike" data-key="0" data-testid="sort-name">Name</button></th>
+      <th scope="col" aria-sort="none"><button type="button" class="linklike" data-key="1" data-testid="sort-role">Role</button></th>
+      <th scope="col" aria-sort="none" class="num"><button type="button" class="linklike" data-key="2" data-num="1" data-testid="sort-score">Score</button></th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Asha</td><td>Tester</td><td class="num">82</td></tr>
+      <tr><td>Bo</td><td>Developer</td><td class="num">67</td></tr>
+      <tr><td>Chen</td><td>Designer</td><td class="num">91</td></tr>
+      <tr><td>Dara</td><td>Manager</td><td class="num">74</td></tr>
+      <tr><td>Eli</td><td>Tester</td><td class="num">58</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="widget" aria-labelledby="w-toast-h">
+  <h2 id="w-toast-h">Toast and tooltip</h2>
+  <div class="actions">
+    <button type="button" class="btn" id="show-toast" data-testid="show-toast">Show toast</button>
+    <span class="tooltip-wrap">
+      <button type="button" class="btn" id="tooltip-button" aria-describedby="tooltip-1" data-testid="tooltip-button">Hover or focus me</button>
+      <span role="tooltip" id="tooltip-1" class="tooltip" hidden data-testid="tooltip">This is a tooltip.</span>
+    </span>
+  </div>
+</section>
+
+<section class="widget" aria-labelledby="w-dnd-h">
+  <h2 id="w-dnd-h">Drag and drop</h2>
+  <p class="muted">Drag a card from "To do" to "Done", or use its Move button.</p>
+  <div class="dnd">
+    <div><h3 id="todo-h">To do</h3>
+    <ul id="dnd-todo" class="zone" aria-labelledby="todo-h" data-testid="dnd-todo">
+      <li class="item" draggable="true" id="card-1" data-testid="dnd-card-1"><span>Write test plan</span><button type="button" class="btn" data-move="1">Move to Done</button></li>
+      <li class="item" draggable="true" id="card-2" data-testid="dnd-card-2"><span>Review requirements</span><button type="button" class="btn" data-move="1">Move to Done</button></li>
+      <li class="item" draggable="true" id="card-3" data-testid="dnd-card-3"><span>Report bugs</span><button type="button" class="btn" data-move="1">Move to Done</button></li>
+    </ul></div>
+    <div><h3 id="done-h">Done</h3>
+    <ul id="dnd-done" class="zone" aria-labelledby="done-h" data-testid="dnd-done"></ul></div>
+  </div>
+  <p id="dnd-status" role="status" data-testid="dnd-status"></p>
+</section>
+
+<section class="widget" aria-labelledby="w-frame-h">
+  <h2 id="w-frame-h">Form inside an iframe</h2>
+  <iframe class="frame" src="/frame-form.html" title="Feedback form" data-testid="form-frame"></iframe>
+</section>
+
+<section class="widget" aria-labelledby="w-late-h">
+  <h2 id="w-late-h">Delayed element</h2>
+  <p class="muted">Something appears here about 6 seconds after the page loads.</p>
+  <div id="late-slot"></div>
+</section>
+
+<section class="widget" aria-labelledby="w-live-h">
+  <h2 id="w-live-h">Live region</h2>
+  <button type="button" class="btn" id="press-me" data-testid="press-me">Press me</button>
+  <p id="press-count" aria-live="polite" data-testid="press-count">Pressed 0 times.</p>
+</section>
+</main>
+<footer class="site-footer">Practice Store · fake data only · <a href="/docs/requirements">Requirements</a></footer>
+</body>
+</html>
