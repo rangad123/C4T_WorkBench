@@ -100,3 +100,17 @@ export function buildOpenApi(routes, { changeApi = false } = {}) {
     },
   };
 }
+
+// /docs/api: the same API as plain tables for people who do not read OpenAPI. Not linked from any page, so crawlers skip it.
+export function apiMarkdown(doc) {
+  const cell = (v) => String(v ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
+  const byTag = {};
+  for (const [path, ops] of Object.entries(doc.paths)) {
+    for (const [method, op] of Object.entries(ops)) {
+      const who = !op.security ? 'Anyone' : op.responses?.[403] ? 'Admins' : 'Signed in';
+      (byTag[op.tags?.[0] || 'Other'] ||= []).push(`| ${method.toUpperCase()} | \`${cell(path)}\` | ${cell(op.summary)} | ${who} |`);
+    }
+  }
+  const sections = Object.entries(byTag).map(([tag, rows]) => `## ${cell(tag)}\n\n| Method | Address | What it does | Who can use it |\n|---|---|---|---|\n${rows.join('\n')}`);
+  return `# API list\n\n${doc.info.title}, version ${doc.info.version}. ${doc.info.description}\n\nThe full machine-readable description is [/openapi.json](/openapi.json).\n\n${sections.join('\n\n')}\n`;
+}

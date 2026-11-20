@@ -47,6 +47,17 @@ describe('pages', () => {
     for (const [url, file] of Object.entries(signedIn)) assert.ok((await c.get(url)).text.includes(`page:${file}`), url);
   });
 
+  test('/docs/api lists every documented operation for people, is noindex and is linked from no page', async () => {
+    const r = await s.client().get('/docs/api');
+    assert.equal(r.status, 200);
+    assert.match(r.text, /<meta name="robots" content="noindex, nofollow">/);
+    const doc = (await s.client().get('/openapi.json')).data;
+    const ops = Object.entries(doc.paths).flatMap(([p, m]) => Object.keys(m).map((k) => `<td>${k.toUpperCase()}</td><td><code>${p}</code></td>`));
+    for (const op of ops) assert.ok(r.text.includes(op), op);
+    assert.ok(r.text.includes('<td>Admins</td>') && r.text.includes('<td>Signed in</td>') && r.text.includes('<td>Anyone</td>'));
+    for (const page of ['/', '/products', '/docs/requirements']) assert.ok(!(await s.client().get(page)).text.includes('/docs/api'), page);
+  });
+
   test('signed-in pages send visitors to /login?next=', async () => {
     for (const url of ['/account', '/cart', '/orders/1001', '/admin/users']) {
       const r = await s.client().get(url);

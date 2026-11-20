@@ -7,7 +7,7 @@ import { routes } from './api.mjs';
 import { createAuth } from './auth.mjs';
 import { BUG_IDS, CHANGE_IDS, parseBugList, parseChangeList } from './bugs.mjs';
 import { createLive } from './live.mjs';
-import { buildOpenApi } from './openapi.mjs';
+import { apiMarkdown, buildOpenApi } from './openapi.mjs';
 import { createPages } from './pages.mjs';
 import { SEED_USER_IDS, seed } from './store.mjs';
 import { HttpError, errorBody, fail, parseCookies, parseMultipart, readBody, safeEqual, sendJson, setCookie, validate } from './util.mjs';
@@ -184,6 +184,7 @@ export function createPracticeServer(opts = {}) {
     try {
       if (isApi) return await handleApi(ctx);
       if (url.pathname === '/openapi.json') return sendJson(res, 200, ctx.change('CHANGE_API') ? openapiChanged : openapi);
+      if (url.pathname === '/docs/api' && (req.method === 'GET' || req.method === 'HEAD')) return await pages.renderMarkdown(ctx, 'API list', apiMarkdown(ctx.change('CHANGE_API') ? openapiChanged : openapi), { noindex: true });
       if (url.pathname === '/__reset') {
         if (req.method !== 'GET') fail(405, 'Use GET for this address.', { headers: { Allow: 'GET' } });
         app.checkResetToken(req);

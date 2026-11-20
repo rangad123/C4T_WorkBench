@@ -59,6 +59,11 @@ export function createPages(app) {
   async function renderDoc(ctx, mdFile, title) {
     let md;
     try { md = await readFile(join(docsDir, mdFile), 'utf8'); } catch { return sendHtml(ctx, 404, '404.html'); }
+    return renderMarkdown(ctx, title, md);
+  }
+
+  // noindex: the page is for people who are given its address, not for crawlers.
+  async function renderMarkdown(ctx, title, md, { noindex = false } = {}) {
     let frame;
     try { frame = await readFile(join(root, '404.html'), 'utf8'); } catch { frame = null; }
     const content = `<article class="doc">${markdown(md)}</article>`;
@@ -67,6 +72,7 @@ export function createPages(app) {
       html = frame.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)} — Practice Store</title>`)
         .replace(/(<main[^>]*>)[\s\S]*(<\/main>)/, (_, a, b) => `${a}${content}${b}`);
     } else html = fallbackPage(title, content);
+    if (noindex) html = html.replace(/<head>/i, '<head><meta name="robots" content="noindex, nofollow">');
     return writeHtml(ctx, 200, html);
   }
 
@@ -124,7 +130,7 @@ export function createPages(app) {
     return serveStatic(ctx, url.pathname);
   }
 
-  return { handle, sendHtml };
+  return { handle, sendHtml, renderMarkdown };
 }
 
 function redirect(res, location) {
