@@ -7,7 +7,7 @@ const OUT = new URL('../public', import.meta.url).pathname;
 const practiceLinks = [
   ['/widgets', 'Widgets'], ['/live', 'Live'], ['/spa/#/dashboard', 'Notes (SPA)'], ['/mailbox', 'Mailbox'],
   ['/login-plain', 'Plain login'], ['/captcha', 'Captcha'], ['/ads', 'Ads'], ['/a11y', 'Accessibility issues'],
-  ['/slow', 'Slow page'], ['/broken', 'Broken page'], ['/docs/requirements', 'Requirements'],
+  ['/slow', 'Slow page'], ['/broken', 'Broken page'], ['/docs/requirements', 'Requirements'], ['/docs/api', 'Api'],
 ];
 
 function nav(current) {
