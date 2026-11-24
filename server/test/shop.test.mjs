@@ -66,7 +66,7 @@ describe('cart', () => {
     r = await c.post('/api/cart/items', { productId: 1, qty: 2 }); // 14.99 x 2
     assert.equal(r.data.subtotal, 37.47);
     assert.equal(r.data.total, 37.47);
-    assert.equal((await c.get('/api/cart/items?shipping=express')).data.total, 47.46);
+    assert.equal((await c.get('/api/cart/items?shipping=express')).data.total, 50.46);
     const lineId = r.data.items[0].id;
     r = await c.patch(`/api/cart/items/${lineId}`, { qty: 5 });
     assert.equal(r.data.items[0].qty, 5);
@@ -139,8 +139,8 @@ describe('orders', () => {
     const o = r.data.order;
     assert.equal(o.status, 'pending');
     assert.equal(o.subtotal, 55.98);
-    assert.equal(o.shipping.cost, 9.99);
-    assert.equal(o.total, 65.97);
+    assert.equal(o.shipping.cost, 12.99);
+    assert.equal(o.total, 68.97);
     assert.equal((await c.get('/api/cart/items')).data.items.length, 0);
     assert.equal((await c.get('/api/products/10')).data.stock, before - 2);
     const list = await c.get('/api/orders');

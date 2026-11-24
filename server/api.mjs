@@ -9,7 +9,7 @@ const PASSWORD_RULE = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,128}$';
 const PASSWORD_MSG = 'Use at least 8 characters with a letter, a number and a symbol.';
 const QTY_MSG = 'Quantity must be between 1 and 10.';
 const NO_ACCESS = 'You do not have access to this page.';
-const SHIPPING = { standard: 0, express: 999 };
+const SHIPPING = { standard: 0, express: 1299 };
 const PAGE_SIZE = 12;
 const NEXT_STATUS = { pending: ['paid', 'cancelled'], paid: ['shipped', 'cancelled'], shipped: ['delivered'], delivered: [], cancelled: [] };
 

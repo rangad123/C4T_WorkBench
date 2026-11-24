@@ -1,7 +1,7 @@
 import { api, el, money, show, errorText, requireSignIn } from '/assets/common.js';
 import { loadCart } from '/assets/cart-shared.js';
 
-const SHIPPING = { standard: { label: 'Standard (free, 5 days)', cost: 0 }, express: { label: 'Express ($9.99, 1 day)', cost: 9.99 } };
+const SHIPPING = { standard: { label: 'Standard (free, 5 days)', cost: 0 }, express: { label: 'Express ($12.99, 1 day)', cost: 12.99 } };
 const err = document.getElementById('review-error');
 const box = document.getElementById('review');
 const btn = document.getElementById('place-order');

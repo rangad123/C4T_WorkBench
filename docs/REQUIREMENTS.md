@@ -103,7 +103,7 @@ Behaviour that differs from a line below is a defect, unless a bug switch (see B
 
 ## 7 Checkout and orders
 
-7.1 /checkout must ask for the shipping address (name, street, city, postcode, all required) and a shipping choice: Standard (free, 5 days) or Express (9.99, 1 day).
+7.1 /checkout must ask for the shipping address (name, street, city, postcode, all required) and a shipping choice: Standard (free, 5 days) or Express (12.99, 1 day).
 7.2 /checkout/review must show every line, the subtotal, the discount, the shipping cost and the total = subtotal − discount + shipping, before the user places the order.
 7.3 Placing the order must create an order with status "pending" from the cart, empty the cart, and open /orders/:id with "Order placed".
 7.4 Placing an order with an empty cart must be refused with "Your cart is empty." (400 from the API).

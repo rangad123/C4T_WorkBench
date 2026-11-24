@@ -262,7 +262,7 @@ page('checkout.html', {
   </fieldset>
   <fieldset><legend>Shipping</legend>
     <div class="check"><input type="radio" id="ship-standard" name="shipping" value="standard" checked data-testid="ship-standard"> <label for="ship-standard">Standard (free, 5 days)</label></div>
-    <div class="check"><input type="radio" id="ship-express" name="shipping" value="express" data-testid="ship-express"> <label for="ship-express">Express ($9.99, 1 day)</label></div>
+    <div class="check"><input type="radio" id="ship-express" name="shipping" value="express" data-testid="ship-express"> <label for="ship-express">Express ($12.99, 1 day)</label></div>
   </fieldset>
   <div class="actions"><button type="submit" class="btn btn-primary" data-testid="checkout-continue">Continue to review</button></div>
 </form>`,

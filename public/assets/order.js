@@ -6,7 +6,7 @@ const err = document.getElementById('order-error');
 const CANCELLABLE = ['pending', 'paid'];
 if (new URLSearchParams(location.search).get('placed')) document.getElementById('order-placed').hidden = false;
 
-const shipLabel = (m) => (m === 'express' ? 'Express ($9.99, 1 day)' : m === 'standard' ? 'Standard (free, 5 days)' : m || '');
+const shipLabel = (m) => (m === 'express' ? 'Express ($12.99, 1 day)' : m === 'standard' ? 'Standard (free, 5 days)' : m || '');
 
 async function render() {
   const r = await api('/api/orders/' + encodeURIComponent(id));
